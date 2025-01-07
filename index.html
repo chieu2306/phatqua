@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân Phối Quà Tặng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        #employeeInput {
+            width: 50%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Phân Phối Quà Tặng</h1>
+    <textarea id="employeeInput" placeholder="Nhập mã nhân viên, mỗi mã trên một dòng..."></textarea><br>
+    <button class="btn" onclick="generateDistribution()">Tạo Danh Sách</button>
+    <table id="distributionTable">
+        <thead>
+            <tr>
+                <th>Nhân Viên</th>
+                <th>Phần Quà</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        function generateDistribution() {
+            const input = document.getElementById('employeeInput').value;
+            const employees = input.split('\n').map(e => e.trim()).filter(e => e);
+            const gifts = Array.from({ length: employees.length }, (_, i) => i + 1);
+
+            if (employees.length === 0) {
+                alert('Vui lòng nhập mã nhân viên!');
+                return;
+            }
+
+            // Shuffle arrays
+            employees.sort(() => Math.random() - 0.5);
+            gifts.sort(() => Math.random() - 0.5);
+
+            const tableBody = document.querySelector('#distributionTable tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            for (let i = 0; i < employees.length; i++) {
+                const row = document.createElement('tr');
+                const employeeCell = document.createElement('td');
+                const giftCell = document.createElement('td');
+
+                employeeCell.textContent = employees[i];
+                giftCell.textContent = `Phần quà ${gifts[i]}`;
+
+                row.appendChild(employeeCell);
+                row.appendChild(giftCell);
+                tableBody.appendChild(row);
+            }
+        }
+    </script>
+</body>
+</html>
