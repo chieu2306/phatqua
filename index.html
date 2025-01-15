@@ -15,9 +15,15 @@
             margin: 20px auto;
             border-collapse: collapse;
         }
-        th, td {
+        th {
             border: 1px solid #ddd;
             padding: 8px;
+            text-align: center;
+        } 
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
         }
         th {
             background-color: #f4f4f4;
@@ -30,23 +36,28 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            margin: 10px;
         }
         .btn:hover {
             background-color: #0056b3;
         }
-        #employeeInput {
-            width: 50%;
+        textarea {
+            width: 45%;
+            height: 100px;
+            margin: 10px;
             padding: 10px;
-            margin: 10px auto;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        
     </style>
 </head>
 <body>
     <h1>Phân Phối Quà Tặng</h1>
-    <textarea id="employeeInput" placeholder="Nhập mã nhân viên, mỗi mã trên một dòng..."></textarea><br>
+    <textarea id="employeeInput" placeholder="Nhập danh sách nhân viên, mỗi nhân viên trên một dòng..."></textarea>
+    <textarea id="giftInput" placeholder="Nhập danh sách quà tặng, mỗi quà trên một dòng..."></textarea><br>
     <button class="btn" onclick="generateDistribution()">Tạo Danh Sách</button>
+    <button class="btn" onclick="exportToExcel()">Xuất File Excel</button>
     <table id="distributionTable">
         <thead>
             <tr>
@@ -59,12 +70,19 @@
 
     <script>
         function generateDistribution() {
-            const input = document.getElementById('employeeInput').value;
-            const employees = input.split('\n').map(e => e.trim()).filter(e => e);
-            const gifts = Array.from({ length: employees.length }, (_, i) => i + 1);
+            const employeeInput = document.getElementById('employeeInput').value;
+            const giftInput = document.getElementById('giftInput').value;
 
-            if (employees.length === 0) {
-                alert('Vui lòng nhập mã nhân viên!');
+            const employees = employeeInput.split('\n').map(e => e.trim()).filter(e => e);
+            const gifts = giftInput.split('\n').map(e => e.trim()).filter(e => e);
+
+            if (employees.length === 0 || gifts.length === 0) {
+                alert('Vui lòng nhập cả danh sách nhân viên và danh sách quà tặng!');
+                return;
+            }
+
+            if (employees.length !== gifts.length) {
+                alert('Số lượng nhân viên và quà tặng phải bằng nhau!');
                 return;
             }
 
@@ -81,12 +99,28 @@
                 const giftCell = document.createElement('td');
 
                 employeeCell.textContent = employees[i];
-                giftCell.textContent = `Phần quà ${gifts[i]}`;
+                giftCell.textContent = gifts[i];
 
                 row.appendChild(employeeCell);
                 row.appendChild(giftCell);
                 tableBody.appendChild(row);
             }
+        }
+
+        function exportToExcel() {
+            const table = document.getElementById('distributionTable');
+            let csvContent = '';
+
+            for (let row of table.rows) {
+                const cells = Array.from(row.cells).map(cell => cell.textContent);
+                csvContent += cells.join(',') + '\n';
+            }
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'distribution.xls';
+            link.click();
         }
     </script>
 </body>
