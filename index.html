@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phân Phối Quà Tặng</title>
+    <title>Year End Party 2024 - Chợ Tết Nhà Ren</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             text-align: center;
+            background: red;
         }
         table {
             width: 50%;
@@ -53,16 +54,18 @@
     </style>
 </head>
 <body>
-    <h1>Phân Phối Quà Tặng</h1>
-    <textarea id="employeeInput" placeholder="Nhập danh sách nhân viên, mỗi nhân viên trên một dòng..."></textarea>
-    <textarea id="giftInput" placeholder="Nhập danh sách quà tặng, mỗi quà trên một dòng..."></textarea><br>
-    <button class="btn" onclick="generateDistribution()">Tạo Danh Sách</button>
-    <button class="btn" onclick="exportToExcel()">Xuất File Excel</button>
+    <h1>Renaissance Riverside Hotel Saigon</h1>
+    <h1>Year End Party 2024 - Chợ Tết Nhà Ren</h1>
+    <h1>Thank You Gifts</h1>
+    <textarea id="employeeInput" placeholder="Enter a list of ambassadors, one ambassador per line...."></textarea>
+    <textarea id="giftInput" placeholder="Enter a list of gifts, one gift per line..."></textarea><br>
+    <button class="btn" onclick="generateDistribution()">Create a list</button>
+    <button class="btn" onclick="exportToExcel()">Export File</button>
     <table id="distributionTable">
         <thead>
             <tr>
-                <th>Nhân Viên</th>
-                <th>Phần Quà</th>
+                <th>Ambassadors</th>
+                <th>Gifts</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -77,12 +80,12 @@
             const gifts = giftInput.split('\n').map(e => e.trim()).filter(e => e);
 
             if (employees.length === 0 || gifts.length === 0) {
-                alert('Vui lòng nhập cả danh sách nhân viên và danh sách quà tặng!');
+                alert('Please enter ambassadors and gifts list!');
                 return;
             }
 
             if (employees.length !== gifts.length) {
-                alert('Số lượng nhân viên và quà tặng phải bằng nhau!');
+                alert('The number of ambassadors and gifts must be equal.!');
                 return;
             }
 
