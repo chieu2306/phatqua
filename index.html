@@ -23,7 +23,7 @@
             background-image: url('https://assets.onecompiler.app/436afeh3j/436afdkzt/image.jpg'); /* Thay bằng đường dẫn tới ảnh của bạn */
             background-size: cover;
             background-position: center;
-            filter: blur(8px); /* Hiệu ứng làm mờ */
+            filter: blur(10px); /* Hiệu ứng làm mờ */
             z-index: -1;
         }
         .content {
@@ -49,11 +49,17 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
+            max-width: 850px; /* Giới hạn chiều rộng tối đa của cột */
+            word-wrap: break-word; /* Dữ liệu tự xuống dòng nếu vượt quá chiều rộng */
+            overflow-wrap: break-word; /* Đảm bảo tương thích với các trình duyệt */
         } 
         td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            max-width: 850px; /* Giới hạn chiều rộng tối đa của cột */
+            word-wrap: break-word; /* Dữ liệu tự xuống dòng nếu vượt quá chiều rộng */
+            overflow-wrap: break-word; /* Đảm bảo tương thích với các trình duyệt */
         }
         th {
             background-color: #f4f4f4;
@@ -84,7 +90,7 @@
         }
         h1 {
           text-shadow: 0px 10px 30px #FFFF00;
-          font-size: 30px;
+          font-size: 40px;
           color: #FFFF00;
         }
         .table-container {
